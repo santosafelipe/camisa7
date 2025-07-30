@@ -1,0 +1,1038 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*start of the header */
+.navbar {
+    display: flex; /* transforma a .navbar em contêiner flex para organizar logo e links em linha */
+    align-items: center; /* alinha verticalmente os itens ao centro para um layout mais harmônico */
+    justify-content: space-between; /* separa logo à esquerda e links à direita */
+    position: fixed; /* fixa a barra no topo da tela ao rolar a página */
+    top: 0; /* fixa no topo */
+    left: 0; /* começa a partir do lado esquerdo */
+    width: 100%; /* ocupa toda a largura da tela */
+    height: 60px; /* define altura da barra */
+    padding: 0 20px; /* espaçamento interno apenas nas laterais */
+    background: white; /* cor de fundo branca */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* sombra discreta para destaque */
+    z-index: 1000; /* garante que fique sobre outros elementos */
+    transition: background-color 0.1s ease, box-shadow 0.1s ease;
+}
+
+.navbar.scrolled {
+    background-color: #ffffffbe; /* fica semitransparente */
+    backdrop-filter: blur(5px); /* Efeito de vidro fosco para navegadores modernos */
+    box-shadow: none; /* opcional: remove a sombra para parecer mais leve */
+}
+
+.navbar nav {
+    flex: 1; /* ocupa o espaço restante para empurrar links à direita */
+    text-align: right; /* alinha o conteúdo (links) à direita */
+}
+
+.navbar nav ul li {
+    display: inline-block; /* organiza os itens da lista em linha */
+    margin-left: 10px; /* Espaço em cada item */
+    list-style-type: none; /* remove os marcadores padrões de lista */
+}
+
+.navbar nav a {
+    text-decoration: none; /* remove o sublinhado padrão dos links */
+    color: #000;
+    font-weight: 500;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.navbar nav a:hover {
+    color: #00c800;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.header-text {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    color: white;
+    text-align: left;
+    font-size: 2.5em;
+    line-height: 1.2;
+    max-width: 400px;
+
+  /* Adicione padding para dar espaçamento ao redor do texto */
+  padding: 20px 30px; /* Padding vertical e horizontal */
+
+  overflow-wrap: break-word;
+  overflow: hidden; /* Garante que nada transborde */
+
+  /* Adicione display: inline-block para que o fundo se ajuste ao conteúdo */
+  display: inline-block;
+  white-space: normal; /* Garante que o texto quebre linhas normalmente */
+
+}
+
+/* Media Queries for Responsivenes */
+@media (max-width: 768px) {
+    .header-text {
+        flex-basis: 90%; /* Allow it to take more width on tablets/smaller desktops */
+        max-width: none; /* Remove max-width constraint for smaller screens if needed */
+        padding: 5px 10px; /* Slightly less padding for smaller screens */
+        font-size: 2em; /* Adjust font size to fit better */
+    }
+}
+
+@media (max-width: 480px) { 
+    .header-text {
+        flex-basis: 100%; /* Take full width on very small screens */
+        min-width: unset; /* Remove min-width to allow shrinking if necessary */
+        padding: 5px 10px; /* Even less padding */
+        font-size: 1em; /* Further decrease font size to ensure text fits */
+    }
+}
+
+.header-text h1 {
+    font-size: 50px;
+    line-height: 60px;
+    margin: 25px 0;
+    color: #fff;
+}
+
+.header {
+    min-height: 60px; /* Altura mínima para o cabeçalho padrão */
+}
+
+/* Nova classe para o cabeçalho da página inicial (Home) */
+.header-home {
+    background-image: url('images/coleanddembele.jpg_large');
+    background-size: cover; /* Garante que a imagem cubra toda a área*/
+    background-position: center; /* Centraliza a imagem no fundo */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+    min-height: 650px; /* Altura mínima para o banner da home */
+}
+/*end of the header*/
+
+/* Esconde menu desktop em telas pequenas (até 768px de largura) */
+@media (max-width: 768px) {
+    .navbar nav ul.main-nav-list { /* Seleciona a lista de navegação principal */
+        display: none; /* Oculta o menu principal em telas menores (tablets e telemóveis) */
+    }
+}
+
+/* MENU HAMBÚRGUER (ÍCONE E ANIMAÇÃO) */
+.hamburger-icon {
+    width: 30px; /* Largura do ícone hambúrguer */
+    height: 20px; /* Altura do ícone hambúrguer */
+    position: relative; /* Define a posição como relativa para posicionamento dos bares */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    display: none; /* Oculta o ícone hambúrguer por padrão em telas grandes */
+    flex-direction: column; /* Organiza os "bares" do hambúrguer em coluna */
+    justify-content: space-between; /* Distribui o espaço entre os "bares" */
+    z-index: 9999; /* Garante que o ícone esteja acima de outros elementos */
+}
+
+.hamburger-icon div { /* Seleciona as três 'divs' que formam os bares do ícone */
+    width: 100%; /* Cada bar ocupa 100% da largura do container do ícone */
+    height: 3px; /* Altura de cada bar */
+    background-color: #333; /* Cor dos bares (cinza escuro) */
+    transition: all 0.3s ease-in-out; /* Adiciona transição suave para todas as propriedades */
+    border-radius: 2px; /* Arredonda as pontas dos bares */
+}
+
+/* Animação do ícone ao abrir (transforma em um 'X') */
+.hamburger-icon.open .bar1 { /* Quando a classe 'open' é adicionada ao ícone, afeta o primeiro bar */
+    transform: translateY(8px) rotate(45deg); /* Move para baixo e gira para formar a primeira parte do 'X' */
+}
+
+.hamburger-icon.open .bar2 { /* Quando a classe 'open' é adicionada ao ícone, afeta o segundo bar */
+    opacity: 0; /* Torna o bar do meio completamente transparente */
+}
+
+.hamburger-icon.open .bar3 { /* Quando a classe 'open' é adicionada ao ícone, afeta o terceiro bar */
+    transform: translateY(-8px) rotate(-45deg); /* Move para cima e gira para formar a segunda parte do 'X' */
+}
+
+/* Mostrar ícone apenas em telas menores (até 768px de largura) */
+@media (max-width: 768px) {
+    .hamburger-icon { /* Seleciona o ícone hambúrguer */
+        display: flex; /* Mostra o ícone (como flexbox) em telas menores */
+        position: absolute; /* Define a posição absoluta em relação ao navbar */
+        right: 20px; /* Posiciona 20px da borda direita */
+        top: 50%; /* Posiciona no meio verticalmente */
+        transform: translateY(-50%); /* Ajusta a posição para centralizar perfeitamente */
+    }
+}
+
+/* MENU LATERAL (SIDEBAR HAMBÚRGUER) */
+.sidebar-menu {
+    position: fixed; /* Fixa o menu lateral na tela */
+    top: 0; /* Alinha o topo do menu com o topo da viewport */
+    right: -250px; /* Esconde o menu lateral fora da tela (250px para a direita) */
+    width: 250px; /* Largura do menu lateral */
+    height: 100%; /* Ocupa 100% da altura da viewport */
+    overflow-y: auto;
+    background-color: #ffffffbe; /* Fundo branco semitransparente (aprox. 75% opacidade) */
+    backdrop-filter: blur(5px); /* Aplica um desfoque no que está por trás do menu (efeito vidro fosco) */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adiciona uma sombra discreta ao menu lateral */
+    transition: right 0.3s ease-in-out, background-color 0.1s ease, box-shadow 0.1s ease; /* Transições para o slide e outras propriedades */
+    z-index: 1000; /* Garante que o menu lateral fique acima da maioria dos elementos */
+    padding-top: 80px; /* Adiciona um preenchimento no topo para o conteúdo do menu */
+}
+
+.sidebar-menu.open { /* Quando a classe 'open' é adicionada ao sidebar-menu */
+    right: 0; /* Move o menu para a posição visível na tela (0px da direita) */
+}
+
+.sidebar-menu ul { /* Seleciona a lista dentro do menu lateral */
+    list-style: none; /* Remove os marcadores de lista padrão */
+    padding: 0; /* Remove preenchimento padrão */
+    margin: 0; /* Remove margens padrão */
+}
+
+.sidebar-menu ul li { /* Seleciona cada item da lista (li) no menu lateral */
+    border-bottom: 1px solid #444; /* Adiciona uma borda inferior para separar os itens */
+}
+
+.sidebar-menu ul li:last-child { /* Seleciona o último item da lista no menu lateral */
+    border-bottom: none; /* Remove a borda inferior do último item */
+}
+
+.sidebar-menu ul li a { /* Seleciona os links dentro dos itens do menu lateral */
+    display: block; /* Faz com que o link ocupe toda a largura do item da lista */
+    padding: 15px 20px; /* Adiciona preenchimento interno para aumentar a área clicável */
+    color: black; /* Define a cor do texto do link (preto) */
+    text-decoration: none; /* Remove o sublinhado padrão dos links */
+    font-size: 1.1em; /* Define o tamanho da fonte ligeiramente maior que o padrão */
+    transition: background-color 0.2s ease; /* Adiciona transição suave para a cor de fundo (se houver) */
+}
+
+.sidebar-menu ul li a:hover { /* Estilo para links do menu lateral ao passar o mouse */
+    background-color: transparent; /* Remove a cor de fundo no hover */
+    color: #00c800; /* Altera a cor do texto para verde no hover */
+}
+
+/* OVERLAY (FUNDO ESCURO COM MENU ABERTO) */
+.overlay {
+    position: fixed; /* Fixa o overlay na tela */
+    top: 0; /* Alinha o topo com o topo da viewport */
+    left: 0; /* Alinha a esquerda com a esquerda da viewport */
+    width: 100%; /* Ocupa 100% da largura da viewport */
+    height: 100%; /* Ocupa 100% da altura da viewport */
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo preta com 50% de opacidade */
+    z-index: 999; /* Garante que o overlay fique abaixo do menu lateral, mas acima do conteúdo */
+    opacity: 0; /* Torna o overlay invisível por padrão */
+    visibility: hidden; /* Garante que o overlay não interfira com cliques quando invisível */
+    transition: opacity 0.3s ease; /* Transição suave para a propriedade de opacidade */
+}
+
+.overlay.visible { /* Quando a classe 'visible' é adicionada ao overlay */
+    opacity: 1; /* Torna o overlay completamente visível */
+    visibility: visible; /* Faz com que o overlay possa ser clicado/interagido */
+}
+
+/* Lembre-se de adicionar esta regra para prevenir scroll no corpo quando o menu está aberto */
+.no-scroll {
+    overflow: hidden;
+}
+/*start of the banner*/
+.banner {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin: 0 0 50px;
+}
+
+.banner img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Container para os textos personalizados do banner */
+.custom-banner-texts-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Grande espaço vertical entre as linhas de texto */
+    align-items: flex-end; /* Alinha os blocos de texto à direita dentro do container */
+    z-index: 10;
+}
+
+/* Estilo para cada linha de texto individual */
+.custom-banner-line {
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco levemente transparente */
+    color: #000;
+    font-size: 32px;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-align: right; /* Alinha o texto à direita dentro de cada span */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    white-space: nowrap; /* Impede a quebra de linha *dentro* do texto em telas grandes */
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .custom-banner-texts-container {
+        bottom: 15px;
+        right: 15px;
+        gap: 10px; /* Reduzir o espaço para tablets */
+        align-items: flex-end; /* Manter alinhamento à direita */
+    }
+    .custom-banner-line {
+        font-size: 25px; /* Reduzir o tamanho da fonte para tablets */
+        padding: 8px 12px;
+        text-align: right; /* Manter alinhamento à direita */
+        white-space: nowrap; /* Manter sem quebra de linha interna para tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-banner-texts-container {
+        bottom: 10px;
+        right: 10px;
+        gap: 10px; /* Mais redução de espaço */
+        align-items: flex-end; /* Manter estritamente à direita, mesmo em mobile */
+    }
+    .custom-banner-line {
+        font-size: 16px; /* Ajuste para caber em telas de celular (ex: 16px para 1em padrão) */
+        padding: 5px 10px;
+        white-space: nowrap; /* Impede a quebra de linha *interna* do texto em celulares */
+        text-align: right; /* Alinha o texto estritamente à direita dentro do seu próprio bloco */
+        
+    }
+}
+/*end of the banner*/
+
+/* categories logos*/
+.categories {
+  padding: 0; /* Espaçamento acima e abaixo */
+  background-color: #fff; /* Cor de fundo da seção */
+}
+
+.small-container {
+  max-width: 1200px; /* Largura máxima do conteúdo */
+  margin: 0 auto; /* Centraliza horizontalmente */
+  padding: 0 10px; /* Espaço nas laterais */
+}
+
+.row {
+  display: flex; /* Ativa o Flexbox para organizar em linha */
+  flex-wrap: wrap; /* Permite quebrar para próxima linha em telas menores */
+  justify-content: space-between; /* Espaço igual entre colunas */
+}
+
+.logos {
+  flex: 0 0 23%; /* Cada coluna ocupa ~25% da largura */
+  margin-bottom: 5px; /* Espaço abaixo de cada coluna */
+  text-align: center; /* Centraliza o conteúdo dentro da coluna */
+}
+
+.img-box {
+  width: 100%; /* Ocupa toda a largura da coluna */
+  height: 180px; /* Altura fixa para todas as caixas */
+  background: #fff; /* Fundo branco para as caixas */
+  display: flex; /* Ativa Flexbox para alinhar imagem */
+  align-items: center; /* Centraliza verticalmente a imagem */
+  justify-content: center; /* Centraliza horizontalmente a imagem */
+  overflow: hidden; /* Esconde qualquer parte da imagem que ultrapasse */
+  border-radius: 8px; /* Cantos arredondados nas caixas */
+}
+
+.img-box img {
+  max-height: 100%; /* Imagem nunca ultrapassa a altura da caixa */
+  max-width: 100%; /* Imagem nunca ultrapassa a largura da caixa */
+  object-fit: cover; /* Garante que a imagem caiba sem distorcer */
+  transition: transform 0.3s; /* Suaviza o efeito ao passar o mouse */
+}
+
+.img-box img:hover {
+  transform: scale(1.03); /* Aumenta levemente a imagem ao passar o mouse */
+}
+/* Media Query para telas menores (celulares) */
+@media screen and (max-width: 768px) {
+  .img-box {
+    width: 100%; /* A imagem ocupa 100% da largura do contêiner no celular */
+    height: 60px;
+  }
+}
+
+/* Opcional: Media Query para telas muito pequenas, se necessário */
+@media screen and (max-width: 480px) {
+  .imagem-produto {
+    width: 90%; /* Ajuste a largura para telas muito pequenas */
+  }
+}
+/*end of the logos*/
+
+/*start of the novidades and inspire-se cards */
+.promo-cards-container {
+    display: grid; /* Ou display: flex; */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Exemplo de grid responsivo */
+    gap: 20px; /* Espaçamento entre os cards */
+    padding: 20px;
+    background-color: #f0f0f0; /* Cor de fundo da área dos cards */
+}
+
+.card {
+    display: flex; /* Para centralizar o conteúdo verticalmente */
+    flex-direction: column;
+    justify-content: flex-end; /* Alinha o conteúdo ao fundo */
+    height: 300px; /* Altura fixa para todos os cards */
+    border-radius: 8px; /* Cantos arredondados */
+    overflow: hidden; /* Garante que nada transborde */
+    text-decoration: none; /* Remove sublinhado padrão do link */
+    color: white; /* Cor do texto padrão */
+    box-shadow: 0 4px 8px gray; /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efeito hover */
+    position: relative; /* Necessário para posicionar o gradiente */
+    background-size: cover; /* A imagem de fundo cobrirá todo o card */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Não repete a imagem */
+}
+
+.promo-card:hover {
+    transform: translateY(-5px); /* Efeito de "subir" no hover */
+    box-shadow: 0 8px 16px #00c800; /* Sombra mais intensa no hover */
+}
+
+.content {
+    position: relative; /* Para garantir que o texto esteja acima do gradiente */
+    z-index: 2; /* Garante que o conteúdo esteja acima do gradiente */
+    padding: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Sombra no texto para melhor leitura */
+}
+
+.brand-esp {
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 0.8; /* Levemente mais transparente */
+    margin-bottom: 5px;
+    display: block; /* Garante que o span ocupe sua própria linha */
+}
+
+.title-style {
+    font-size: 1.5em; /* Tamanho do título */
+    margin: 0; /* Remove margens padrão */
+    line-height: 1.2;
+}
+
+.novi-card-bg {
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%), /* Gradiente escuro para baixo */
+        linear-gradient(to right, rgba(255, 165, 0, 0.3) 0%, rgba(255, 165, 0, 0) 100%), /* Gradiente laranja suave à esquerda */
+        url('images/novidades/porto-ii.jpg.webp'); /* Imagem de fundo */
+    background-size: cover;
+    background-position: center;
+}
+
+.novi-card-bg2 {
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%),
+        url('images/novidades/realmadrid-ii.jpg'); /* Imagem de fundo */
+    background-size: cover;
+    background-position: 50% 3%;
+}
+
+.novi-card-bg3 {
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%),
+        url('images/novidades/psg-home-.webp'); /* Imagem de fundo */
+    background-size: cover;
+    background-position: 50% 25%;
+}
+
+.ins-card-bg1 {
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%),
+        url('images/novidades/arsenal-home.webp'); /* Imagem de fundo */
+    background-size: cover;
+    background-position: top;
+}
+
+.ins-card-bg2 {
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%),
+        url('images/novidades/bvb-white.jpg'); /* Imagem de fundo */
+    background-size: cover;
+    background-position: center;
+}
+
+.ins-card-bg3 {
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%),
+        url('images/novidades/Puma\ Portugal\ 2025\ Kits\ Released\ \ \(7\).jpg'); /* Imagem de fundo */
+    background-size: cover;
+    background-position: center;
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  color: black; 
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 40px 0;
+  position: relative;
+  font-family: 'Arial Black', Impact, sans-serif;
+}
+
+.title::after {
+  content: '';
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(to right, #00c800, #66bb6a);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+/* end of the novidades and inspire-se cards*/
+
+/*start of the products */
+.col-4 {
+    margin: 40px auto; /* Aumentado para mais espaço vertical ao redor da seção */
+    width: 90%; 
+    display: flex;
+    justify-content: center;
+    gap: 24px; /* Aumentado ligeiramente para mais respiro entre os cards */
+    flex-wrap: wrap;
+    background-color: #F8F9FA; /* Fundo suave para o container, se não estiver definido em outro lugar */
+    padding: 24px 0; /* Adiciona um padding vertical para o conteúdo não "colar" nas bordas */
+    border-radius: 12px; /* Adiciona cantos arredondados ao container, se desejar */
+}
+
+.product-card-item {
+    flex-basis: 23.5%;
+    min-width: 200px;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column; /* Organiza os filhos diretos (wrapper do link e botões) em coluna */
+    background-color: #fff; /* Adicionado para garantir que o fundo seja branco */
+    border: 1px solid #EAECEE; /* Cor de borda mais suave */
+    border-radius: 12px; /* Bordas um pouco mais arredondadas para um visual mais amigável */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra mais sutil e profissional */
+    padding: 16px; /* Aumenta o respiro interno */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    /* As propriedades de background-image foram mantidas caso sejam usadas dinamicamente */
+}
+
+.product-card-item:hover {
+    transform: translateY(-5px); /* Elevação mais perceptível ao passar o mouse */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada e convidativa ao hover */
+}
+
+.product-card-item img {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Garante consistência de tamanho (imagem quadrada) */
+    object-fit: contain; /* Preenche a área, mantendo a proporção (melhor que contain para e-commerce) */
+    border-radius: 8px; /* Cantos ligeiramente mais arredondados para a imagem */
+    margin-bottom: 16px; /* Mais espaço abaixo da imagem */
+    background-color: #f0f2f500; /* Fundo de fallback mais neutro para imagens */
+}
+
+.product-card-item .nomeproduct {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600; /* Um pouco menos "pesado" que 'bold' */
+    color: #2C3E50; /* Cor escura, mas menos "dura" que o preto total */
+    font-family: 'Orbitron', sans-serif;
+    margin: 0 0 12px 0; /* Controla o espaçamento (top, right, bottom, left) */
+    min-height: 2.5em; /* Evita que o layout "pule" se um título tiver 1 linha e outro 2 */
+}
+
+.product-card-item .price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #00c800; /* Mantida a cor da marca */
+    margin: o; /* Remove margens para controlar o espaçamento no container */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.product-card-item .oldprice {
+    text-decoration: line-through;
+    color: #95a5a6; /* Cor de cinza mais suave */
+    font-size: 16px;
+    margin-top: 4px; /* Adiciona um pequeno espaço acima */
+}
+
+/* Os media queries existentes não precisam de grandes alterações, mas o max-width
+   pode ser ajustado para ser mais flexível com o min-width dos cards. */
+@media (max-width: 992px) {
+    .product-card-item {
+        flex-basis: 48%; /* Permite 2 colunas */
+        max-width: calc(50% - 24px); /* Ajusta para o gap de 24px */
+    }
+}
+
+@media (max-width: 768px) {
+    .product-card-item {
+        flex-basis: 48%; /* Mantém 2 colunas em tablets, ou ajuste para 1 se preferir */
+        max-width: calc(50% - 24px);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-card-item {
+        flex-basis: 100%; /* Uma coluna em celulares */
+        max-width: 100%; /* Ocupa toda a largura disponível */
+    }
+}
+/*end of the products */
+
+/* start of the midf banner */
+.banner-midf {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url("images/banner/bannermidf.png");
+    width: 100%;
+    height: 40vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.banner-midf h2 {
+    color: #fff;
+    font-size: 60px;
+    padding: 10px 0;
+}
+
+.bmidf {
+    text-decoration: none;
+    background-color: #00c80000;
+    color: #fff;
+    border: 4px inset #00c800;
+    padding: 10px 16px; /*12 24*/
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    /* Add a small margin-top if needed for extra space from h2 */
+    margin-top: 10px;
+}
+
+.bmidf:hover {
+    background: #00c800;
+    border: 4px outset #00c800;
+    color: #fff;
+}
+/* Para telas médias (ex: tablets) */
+@media (max-width: 768px) {
+    .banner-midf h2 {
+        font-size: 45px; /* Reduz o tamanho da fonte para telas menores */
+    }
+}
+
+/* Para telas pequenas (ex: celulares) */
+@media (max-width: 480px) {
+    .banner-midf {
+        height: 30vh; /* Pode reduzir a altura do banner em telas muito pequenas */
+    }
+    .banner-midf h2 {
+        font-size: 30px; /* Reduz ainda mais o tamanho da fonte */
+        /* Pode ajustar o padding para o texto não ficar muito espremido nas laterais */
+        padding: 5px 0;
+    }
+    .bmidf {
+        padding: 8px 12px; /* Reduz o padding do botão para telas menores */
+        font-size: 14px; /* Reduz o tamanho da fonte do botão */
+    }
+}
+
+/* Para telas muito pequenas, se necessário */
+@media (max-width: 320px) {
+    .banner-midf h2 {
+        font-size: 24px;
+    }
+}
+/* end of the midf banner */
+
+/* start of the footer*/
+.small {
+    color: #555;
+}
+
+.footer .logo-footer img {
+    width: 80px; /* Ou o tamanho que preferir, por exemplo, 60px, 100px */
+    height: auto; /* Mantém a proporção da imagem */
+    margin-bottom: 15px; /* Adiciona um pequeno espaço abaixo do logo se necessário */
+}
+
+.footer {
+    background: #000; /* Um fundo escuro (preto) ou cinza escuro para contraste */
+    color: #8a8a8a; /* Cor de texto mais suave, um cinza claro */
+    font-size: 14px;
+    padding: 50px 0 20px; /* 60px Aumenta o espaçamento superior e inferior */
+    margin-top: 100px;
+}
+
+.footer h3 {
+    color: #fff; /* Títulos mais claros */
+    margin-bottom: 20px;
+}
+
+.footer ul {
+    list-style-type: none; /* Remove marcadores de lista */
+    padding: 0;
+}
+
+.footer ul li {
+    margin-bottom: 10px; /* Espaçamento entre os itens da lista */
+}
+
+.footer ul li a {
+    color: #8a8a8a; /* Cor do link igual ao texto normal */
+    text-decoration: none; /* Remove sublinhado dos links */
+    transition: color 0.3s ease; /* Transição suave na cor do link ao passar o mouse */
+}
+
+.footer ul li a:hover {
+    color: #fff; /* Links ficam brancos ao passar o mouse */
+}
+
+.footer .Created {
+    text-align: center;
+    margin-top: 30px; /* Espaçamento acima do texto de criação */
+    color: #666; /* Cor mais escura para o texto de direitos autorais */
+    font-size: 12px;
+}
+
+/* Ajustes para as colunas do rodapé, se você estiver usando um sistema de grid */
+.footer .row {
+    display: flex;
+    justify-content: space-around; /* Distribui o espaço entre as colunas */
+    flex-wrap: wrap; /* Permite que as colunas quebrem em telas menores */
+    align-items: flex-start; /* Alinha o conteúdo ao topo das colunas */
+}
+
+.footer-col-1,
+.footer-col-2,
+.footer-col-3,
+.logo-footer { /* Adicionado logo-footer aqui para flex-basis */
+    flex-basis: 20%; /* Exemplo: cada coluna ocupa cerca de 30% da largura */
+    min-width: 200px; /* Largura mínima para evitar que fiquem muito estreitas */
+    margin-bottom: 0; /* Espaçamento inferior para responsividade */
+    text-align: center; /* Centraliza o conteúdo dentro da coluna */
+}
+
+/* Cookie Consent Banner Styles */
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Corrigido para contraste */
+    color: #fff; /* Corrigido para contraste */
+    padding: 10px 20px;
+    text-align: center;
+    z-index: 1000;
+
+    display: flex; /* Mantém flex para layout */
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    /* Novas propriedades para esconder/mostrar com transição */
+    opacity: 0; /* Começa invisível */
+    pointer-events: none; /* Não interage com o mouse quando invisível */
+    transition: opacity 0.5s ease; /* Transição suave */
+}
+
+/* Classe para mostrar o banner */
+.cookie-consent-banner.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cookie-consent-banner p {
+    margin: 0;
+    color: #000;
+    font-size: 14px;
+    line-height: 1.5;
+    flex-shrink: 1; /* Permite que o parágrafo encolha se necessário, mas com min-width */
+    min-width: 250px; /* Garante uma largura mínima para o texto */
+    text-align: left; /* Alinha o texto à esquerda dentro do seu espaço */
+}
+
+.cookie-consent-banner p a {
+    color: #4CAF50;
+    text-decoration: underline;
+}
+
+.cookie-consent-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.cookie-consent-button:hover {
+    background-color: #45a049;
+}
+
+/* Media Queries para telas pequenas */
+@media (max-width: 600px) {
+    .cookie-consent-banner {
+        flex-direction: column; /* Empilha texto e botão em telas pequenas */
+        gap: 10px; /* Reduz o espaçamento entre eles */
+        padding: 10px; /* Ajusta o padding geral */
+    }
+
+    .cookie-consent-banner p {
+        font-size: 12px; /* Reduz a fonte para caber melhor */
+        text-align: center; /* Centraliza o texto quando empilhado */
+        min-width: unset; /* Remove min-width para permitir encolhimento total */
+        width: 100%; /* Ocupa a largura total disponível */
+    }
+
+    .cookie-consent-button {
+        width: 80%; /* Botão ocupa mais largura em telas pequenas */
+        max-width: 200px; /* Limita a largura máxima do botão */
+    }
+}
+/* end of the cookies */
+
+/* Estilos para o link dentro do card de produto */
+.product-link-wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz esta área crescer para empurrar as ações para baixo */
+    text-align: left; /* Deixar os textos a esquerda */
+}
+
+/* ESTILOS PARA OS NOVOS BOTÕES DE AÇÃO NOS CARDS    */
+.card-actions {
+    display: flex; /* Alinha os botões lado a lado */
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 15px; /* Espaço acima dos botões */
+}
+
+/* Estilo base para ambos os botões */
+.action-btn {
+    flex: 1; /* Faz com que ambos os botões partilhem o espaço igualmente */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Estilo específico para o botão "Ver Detalhes" */
+.view-btn {
+    background-color: transparent;
+    border: 2px solid #ddd;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-btn:hover {
+    background-color: #f5f5f5;
+    border-color: #00c800;
+}
+
+/* start of the estilo específico para o botão do Carrinho */
+.cart-btn {
+    background-color: #00c800;
+    color: white;
+    border: 2px solid #00c800;
+    font-size: 24px; /* Aumenta o tamanho do ícone */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-btn:hover {
+    background-color: #00a000;
+    border-color: #00a000;
+}
+/* end */
+
+/* Ajuste no card para o botão funcionar bem */
+.product-card-item {
+    display: flex;
+    flex-direction: column; /* Organiza os itens em coluna */
+    justify-content: space-between; /* Garante que o conteúdo e o botão se espaçam */
+}
+.cart-notification {
+    position: fixed; /* Flutua sobre a página */
+    bottom: 20px; /* Distância do fundo */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajuste fino para a centralização */
+    background-color: #00c800;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px; /* Bordas arredondadas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 2000; /* Garante que fica por cima de tudo */
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.5s ease, bottom 0.5s ease; /* Animação suave */
+    pointer-events: none; /* Não permite cliques enquanto estiver escondida */
+}
+
+/* Classe que será adicionada pelo JavaScript para mostrar a notificação */
+.cart-notification.show {
+    opacity: 1;
+    bottom: 30px; /* Efeito de subir um pouco */
+    pointer-events: auto; /* Permite interação (se necessário) */
+}
+/* ESTILO REFINADO PARA AS ETIQUETAS/BADGES          */
+.product-card-item {
+    position: relative;
+    overflow: hidden; /* Esconde o que sair fora do card */
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    left: -35px;
+    transform: rotate(-45deg);
+    width: 140px;
+    padding: 5px 10px;
+    z-index: 10;
+    
+    /* Melhorias de Estilo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff; /* Garante que o texto seja sempre branco puro */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Sombra subtil no texto para legibilidade */
+    font-family: 'Poppins', sans-serif; /* Fonte consistente */
+    font-size: 13px; /* Tamanho ajustado */
+    font-weight: 600; /* Um pouco mais forte */
+    letter-spacing: 0.5px; /* Espaçamento de letras refinado */
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Cores específicas para cada tipo de etiqueta */
+.product-badge-novo {
+    background-color: #007bff; 
+}
+
+.product-badge-saldo {
+    background-color: #dc3545; 
+}
+
+.product-badge-mais-vendido {
+    background-color: #ffc107; 
+    color: #212529; /* Texto escuro para melhor contraste com o amarelo */
+}
+
+/* ESTILOS REFINADOS PARA OS BREADCRUMBS (UX MELHORADA) */
+.breadcrumbs {
+    /* Caixa e Fundo */
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    
+    /* Espaçamento e Alinhamento */
+    padding: 12px 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 auto 40px; /* Define 0 de margem no topo, auto nas laterais, e 40px em baixo */
+    max-width: 1200px;   /* Garante que o breadcrumb alinha com o .container */
+}
+
+.breadcrumbs a {
+    color: #007bff; /* Azul mais vibrante para os links */
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+    color: #0056b3; /* Azul mais escuro ao passar o rato */
+    text-decoration: none; /* Remove o sublinhado no hover para um look mais limpo */
+}
+
+.breadcrumbs .separator {
+    /* Usando um ícone '>' em vez de '/' para um look mais moderno */
+    content: '>';
+    margin: 0 12px;
+    color: #ced4da;
+    font-size: 12px;
+}
+
+.breadcrumbs .current {
+    font-weight: 600;
+    color: #495057; /* Um cinza escuro mas suave para a página atual */
+}
+/* Botão Flutuante do WhatsApp */
+.whatsapp-button {
+    position: fixed; /* Fixa o botão na tela */
+    bottom: 20px; /* Distância da borda inferior */
+    right: 20px; /* Distância da borda direita */
+    background-color: #00c800; /* Cor verde do WhatsApp */
+    color: white; /* Cor do ícone */
+    width: 60px; /* Largura do botão */
+    height: 60px; /* Altura do botão (para ser um círculo) */
+    border-radius: 50%; /* Transforma o botão em um círculo */
+    display: flex; /* Permite centralizar o ícone */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    font-size: 30px; /* Tamanho do ícone do WhatsApp */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Sombra para profundidade */
+    z-index: 1000; /* Garante que o botão fique acima de outros elementos */
+    transition: all 0.3s ease; /* Transição suave para efeitos de hover e scroll */
+    text-decoration: none; /* Remove sublinhado do link */
+}
+
+.whatsapp-button:hover {
+    background-color: #fff; /* Cor verde mais escura ao passar o mouse */
+    color: #00c800;
+    transform: scale(1.08); /* Aumenta ligeiramente o tamanho no hover */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35); /* Sombra mais pronunciada no hover */
+}
+
+/* Media Queries para responsividade em telas menores */
+@media (max-width: 768px) {
+    .whatsapp-button {
+        width: 50px; /* Tamanho menor em tablets */
+        height: 50px;
+        font-size: 26px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .whatsapp-button {
+        width: 45px; /* Tamanho ainda menor em celulares */
+        height: 45px;
+        font-size: 24px;
+        bottom: 10px;
+        right: 10px;
+    }
+}
