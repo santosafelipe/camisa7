@@ -1,66 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Ralves">
-    <title>Camisa7 - Camisolas de Futebol | Compre Agora</title>
-    <link rel="stylesheet" href="https://camisa7.netlify.app/style.css">
-    <link rel="icon" href="https://camisa7.netlify.app/images/logo/7.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-<body>
+<?php 
+    //busca o arquivo e renderiza nesse trecho do código
+    include("includes/header.php"); //busca o header dentro da pasta includes
+    include("includes/navbar.php"); //busca o menu dentro da pasta includes
+?>
 
-<div class="header header-home">
-        <div class="navbar">
-            <div class="logo">
-                <img src="https://camisa7.netlify.app/images/logo/Aurea 4 Arte.png" width="90px" alt="Camisa7 Logo">
-            </div>
-            
-            <nav aria-label="Navegação principal do site">
-                <ul class="main-nav-list">
-            <li><a href='/'>Início</a></li>
-            <li><a href='/products?category=Brasileirão'>Brasileirão</a></li>
-            <li><a href='/products?category=Bundesliga'>Bundesliga</a></li>
-            <li><a href="products.html?category=La Liga">La Liga</a></li>
-            <li><a href="products.html?category=Liga Portugal">Liga Portugal</a></li>
-            <li><a href="products.html?category=Ligue 1">Ligue 1</a></li>
-            <li><a href="products.html?category=Premier League">Premier League</a></li>
-            <li><a href="products.html?category=Serie A">Serie A</a></li>
-            <li><a href='/products?category=Seleção'>Seleções</a></li>
-            <li><a href="products.html?category=Mix especial">Mix especial</a></li>
-            <li><a href="#">Sobre nós</a></li>
-            <li><a href="#">Ajuda</a></li>
-                </ul>
-            </nav>
 
-            <div class="hamburger-menu-section">
-                <div class="hamburger-icon" id="hamburger-icon" aria-label="Abrir menu de navegação">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
-                </div>
-            </div>
-            </div>
-    </header>
-    <aside class="sidebar-menu" id="sidebar-menu" aria-label="Menu lateral de navegação">
-        <ul>
-            <li><a href='/'>Início</a></li>
-            <li><a href='/products?category=Brasileirão'>Brasileirão</a></li>
-            <li><a href='/products?category=Bundesliga'>Bundesliga</a></li>
-            <li><a href="products.html?category=La Liga">La Liga</a></li>
-            <li><a href="products.html?category=Liga Portugal">Liga Portugal</a></li>
-            <li><a href="products.html?category=Ligue 1">Ligue 1</a></li>
-            <li><a href="products.html?category=Premier League">Premier League</a></li>
-            <li><a href="products.html?category=Serie A">Serie A</a></li>
-            <li><a href='/products?category=Seleção'>Seleções</a></li>
-            <li><a href="products.html?category=Mix especial">Mix especial</a></li>
-            <li><a href="#">Sobre nós</a></li>
-            <li><a href="#">Ajuda</a></li>
-        </ul>
-    </aside>
-    </div>
     <div class="row">
         <div class="header-text">
             <h1>ANOTHER PLACE <br> FOR SHIRTS</h1>
@@ -138,38 +82,7 @@
         </div>
 </div>
 
-<div class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="logo-footer"><img src="https://camisa7.netlify.app/images/Camisa7.png" alt="Camisa7 Logo"></div>
-            <div class="footer-col-1">
-                <h3>Follow us</h3>
-                <ul>
-                    <li><a href="https://www.facebook.com/people/Mixhc-Hc-Sports/61573012100737/" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-                    <li><a href="https://x.com/mixhcimports" target="_blank" rel="noopener noreferrer">X</a></li>
-                    <li><a href="https://www.instagram.com/aurea4arte/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-                </ul>
-            </div>
-            <div class="footer-col-2">
-                <h3>Contact</h3>
-                <ul>
-                    <li><a href="https://wa.me/351939169187" target="_blank" rel="noopener noreferrer">+351 938 348 836</a></li>
-                    <li><a href="#">camisa7original@gmail.com</a></li>
-                    <li><a href="#">Portugal</a></li>
-                </ul>
-            </div>
-            <div class="footer-col-3">
-                <h3>Useful links</h3>
-                <ul>
-                    <li><a href='/privacy#politica-privacidade'>Política de Privacidade</a></li>
-                    <li><a href='/privacy#termos-de-uso'>Termos de Uso</a></li>
-                    <li><a href="https://www.livroreclamacoes.pt/inicio/" target="_blank" rel="noopener noreferrer"><img src="images/livro-reclamacoes-120x50.png" alt="Livro de Reclamações"></a></li>
-                </ul>
-            </div>
-        </div>
-        <p class="Created">Created by Ralves</p>
-    </div>
-</div>
+<?php include("includes/footer.php"); ?>
 
 <div id="cookieConsentBanner" class="cookie-consent-banner">
     <p>Este site utiliza cookies para garantir a melhor experiência de navegação. Ao continuar a usar o site, você concorda com o uso de cookies. Clique <a href='/privacy#politica-privacidade'>aqui</a> para saber mais.</p>
